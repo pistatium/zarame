@@ -3,7 +3,7 @@ Simple structural transducer using NamedTuple
 
 ## Usage
 
-```python3
+```python
 from typing import NamedTuple, List, Optional
 
 from zarame import convert
