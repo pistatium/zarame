@@ -10,7 +10,8 @@ setup(
     url='https://github.com/pistatium/zarame',
     author='pistatium',
     description='Simple structural transducer using NamedTuple',
-    packages=find_packages(),
+    packages=find_packages('src'),
+    package_dir={'': 'src'},
     install_requires=[],
     extras_require={
         'test': [
