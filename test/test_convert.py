@@ -1,7 +1,7 @@
 # coding: utf-8
 
 from typing import NamedTuple, List, Optional
-from zarame import convert
+from zarame import load
 
 
 class User(NamedTuple):
@@ -16,15 +16,15 @@ class Room(NamedTuple):
     users: List[User]
 
 
-def test_simple():
+def test_load_simple():
     user = {'id': 1, 'name': 'Taro', 'meta': {'class': 'A'}}
-    converted = convert(user, User)
+    converted = load(user, User)
     assert converted.id == 1
     assert converted.name == 'Taro'
     assert converted.meta == {'class': 'A'}
     assert converted.email is None
 
-def test_structed():
+def test_load_structed():
     room = {
         'id': 1000,
         'users': [
@@ -32,7 +32,7 @@ def test_structed():
             {'id': 2, 'name': 'Hanako', 'meta': {}, 'email': 'hanako@example.com'}
         ]
     }
-    converted = convert(room, Room)
+    converted = load(room, Room)
     assert converted.id == 1000
     assert len(converted.users) == 2
     assert converted.users[0].id == 1

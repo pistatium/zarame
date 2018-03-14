@@ -1,3 +1,3 @@
 # coding: utf-8
 
-from .converter import convert
+from .converter import load

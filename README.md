@@ -6,7 +6,7 @@ Simple structural transducer using NamedTuple
 ```python
 from typing import NamedTuple, List, Optional
 
-from zarame import convert
+from zarame import load
 
 
 class User(NamedTuple):
@@ -29,7 +29,7 @@ room = {
     ]
 }
 
-convert(room, Room)
+load(room, Room)
 
 ```
 
