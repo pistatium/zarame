@@ -1,12 +1,14 @@
 # coding: utf-8
 
-from typing import NamedTuple, List, Type, Optional
-
+from typing import NamedTuple, List, Type, TypeVar
 
 NO_KEY = '__NO_KEY__'
 
 
-def load(d: dict, klass: Type[NamedTuple]):
+T = TypeVar('T')
+
+
+def load(d: dict, klass: Type[T]) -> T:
     fields = klass._field_types
     tmp = {}
     for field, field_type in fields.items():
@@ -28,16 +30,3 @@ def load(d: dict, klass: Type[NamedTuple]):
         tmp[field] = value
 
     return klass(**tmp)
-
-
-def dump(instance):
-    if isinstance(instance, list):
-        return [dump(l) for l in instance]
-    if not hasattr(instance, '_asdict'):
-        return instance
-    d = instance._asdict()
-    for k, v in d.items():
-        if hasattr(instance, '_asdict'):
-            d[k] = dump(v)
-    return d
-
