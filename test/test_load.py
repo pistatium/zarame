@@ -1,6 +1,7 @@
 # coding: utf-8
 
 from typing import NamedTuple, List, Optional
+from enum import Enum
 
 from zarame import load
 
@@ -61,3 +62,18 @@ def test_default_value():
 
     assert load({}, A) == A(a=0)
     assert load({'a': 1}, A) == A(a=1)
+
+
+def test_enum():
+    class Kind(Enum):
+        SPAM = 'spam'
+        HAM = 'ham'
+        EGG = 'egg'
+
+    class A(NamedTuple):
+        kind: Kind
+
+    assert load({'kind': 'spam'}, A) == A(kind=Kind.SPAM)
+    assert load({'kind': 'ham'}, A) == A(kind=Kind.HAM)
+    assert load({'kind': 'egg'}, A) == A(kind=Kind.EGG)
+

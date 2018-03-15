@@ -1,5 +1,5 @@
 # coding: utf-8
-
+from enum import Enum, EnumMeta
 from typing import List, Type, TypeVar
 
 from .utils import is_named_tuple
@@ -33,6 +33,10 @@ def load(d: dict, klass: Type[T]) -> T:
             if not isinstance(value, list):
                 raise ValueError(f'{field} must be list. Actual: {type(value)}')
             tmp[field] = [load(v, field_type.__args__[0]) for v in value]
+            continue
+
+        if isinstance(field_type, EnumMeta):
+            tmp[field] = field_type(value)
             continue
 
         if is_named_tuple(field_type):
