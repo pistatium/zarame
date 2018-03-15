@@ -1,6 +1,8 @@
 # coding: utf-8
 
-from typing import NamedTuple, List, Type, TypeVar
+from typing import List, Type, TypeVar
+
+from .utils import is_named_tuple
 
 NO_KEY = '__NO_KEY__'
 
@@ -9,8 +11,13 @@ T = TypeVar('T')
 
 
 def load(d: dict, klass: Type[T]) -> T:
+
+    if not hasattr(klass, '_field_types'):
+        raise ValueError(f'klass must be subtype of NamedTuple')
+
     fields = klass._field_types
     tmp = {}
+
     for field, field_type in fields.items():
         value = d.get(field, NO_KEY)
         if value == NO_KEY:
@@ -24,7 +31,7 @@ def load(d: dict, klass: Type[T]) -> T:
             tmp[field] = [load(v, field_type.__args__[0]) for v in value]
             continue
 
-        if isinstance(type, NamedTuple):
+        if is_named_tuple(field_type):
             tmp[field] = load(value, field_type)
             continue
         tmp[field] = value
