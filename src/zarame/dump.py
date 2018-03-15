@@ -1,7 +1,11 @@
 # coding: utf-8
 
+from enum import Enum
+
 
 def dump(instance):
+    if isinstance(instance, Enum):
+        return instance.value
     if isinstance(instance, list):
         return [dump(l) for l in instance]
     if not hasattr(instance, '_asdict'):

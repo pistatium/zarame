@@ -1,6 +1,7 @@
 # coding: utf-8
 
 from typing import NamedTuple, Optional, List
+from enum import Enum
 
 from zarame import dump
 
@@ -65,3 +66,15 @@ def test_dump_structured():
             'icon': {'url': 'https://example.com/profile/hanako/img.jpg'}
         }]
     }
+
+
+def test_dump_enum():
+    class Kind(Enum):
+        SPAM = 'spam'
+        HAM = 'ham'
+        EGG = 'egg'
+
+    class A(NamedTuple):
+        kind: Kind
+
+    assert dump(A(kind=Kind.SPAM)) == {'kind': 'spam'}
