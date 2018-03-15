@@ -21,6 +21,10 @@ def load(d: dict, klass: Type[T]) -> T:
     for field, field_type in fields.items():
         value = d.get(field, NO_KEY)
         if value == NO_KEY:
+            # Primitive
+            if not hasattr(field_type, '__args__'):
+                continue
+            # Not Optional
             if type(None) not in list(field_type.__args__):
                 raise ValueError(f'{field} is required.')
             value = None

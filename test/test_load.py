@@ -53,3 +53,11 @@ def test_load_structured():
     assert converted.users[1].id == 2
     assert converted.users[1].email == 'hanako@example.com'
     assert converted.users[1].icon.url == 'https://example.com/profile/hanako/img.jpg'
+
+
+def test_default_value():
+    class A(NamedTuple):
+        a: int = 0
+
+    assert load({}, A) == A(a=0)
+    assert load({'a': 1}, A) == A(a=1)
