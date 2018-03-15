@@ -46,6 +46,7 @@ def test_load_structured():
         }]
     }
     converted = load(room, Room)
+
     assert converted.id == 1000
     assert len(converted.users) == 2
     assert converted.users[0].id == 1
@@ -56,7 +57,7 @@ def test_load_structured():
     assert converted.users[1].icon.url == 'https://example.com/profile/hanako/img.jpg'
 
 
-def test_default_value():
+def test_load_default_value():
     class A(NamedTuple):
         a: int = 0
 
@@ -64,7 +65,7 @@ def test_default_value():
     assert load({'a': 1}, A) == A(a=1)
 
 
-def test_enum():
+def test_load_enum():
     class Kind(Enum):
         SPAM = 'spam'
         HAM = 'ham'
@@ -76,4 +77,3 @@ def test_enum():
     assert load({'kind': 'spam'}, A) == A(kind=Kind.SPAM)
     assert load({'kind': 'ham'}, A) == A(kind=Kind.HAM)
     assert load({'kind': 'egg'}, A) == A(kind=Kind.EGG)
-
