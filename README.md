@@ -10,6 +10,7 @@ Simple structural converter using NamedTuple
 
 ## Usage
 
+### Load from dict
 ```python
 from typing import NamedTuple, List, Optional
 from enum import Enum
@@ -47,7 +48,7 @@ room = {
 instance = load(room, Room)
 ```
 
-### Result
+__Result__
 ```
 Room(
         status=Status.Active,
@@ -56,4 +57,40 @@ Room(
             User(id=2, name='Hanako', email='hanako@example.com')
         ]
 )
+```
+
+### Dump to dict
+
+```python
+from zarame import dump
+
+room = Room(
+        status=Status.ACTIVE,
+        users=[
+            User(id=1, name='Taro', email=None),
+            User(id=2, name='Hanako', email='hanako@example.com')
+        ]
+)
+
+d = dump(d)
+```
+
+__Result__
+
+```python
+OrderedDict([
+    ('status', 'active'), 
+    ('users', [
+        OrderedDict([
+            ('id', 1), 
+            ('name', 'Taro'), 
+            ('email', None)
+        ]), 
+        OrderedDict([
+            ('id', 2), 
+            ('name', 'Hanako'), 
+            ('email', 'hanako@example.com')
+        ])
+    ])
+])
 ```
