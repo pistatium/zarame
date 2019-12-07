@@ -1,5 +1,3 @@
-# coding: utf-8
-
 from typing import NamedTuple, List, Optional
 from enum import Enum
 

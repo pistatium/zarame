@@ -1,13 +1,13 @@
-# coding: utf-8
 from enum import Enum, EnumMeta
 from typing import List, Type, TypeVar
 
-from .utils import is_named_tuple
+from .utils import is_named_tuple, is_list_type
 
 NO_KEY = '__NO_KEY__'
 
 
 T = TypeVar('T')
+
 
 
 def load(d: dict, klass: Type[T]) -> T:
@@ -29,10 +29,11 @@ def load(d: dict, klass: Type[T]) -> T:
                 raise ValueError(f'{field} is required.')
             value = None
 
-        if hasattr(field_type, '__origin__') and field_type.__origin__ == List:
+        if is_list_type(field_type):
             if not isinstance(value, list):
                 raise ValueError(f'{field} must be list. Actual: {type(value)}')
             tmp[field] = [load(v, field_type.__args__[0]) for v in value]
+            print(tmp)
             continue
 
         if isinstance(field_type, EnumMeta):
