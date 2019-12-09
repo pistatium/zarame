@@ -59,6 +59,7 @@ Room(
 )
 ```
 
+You can use `str`, `int`, `bool`, `float`, `Enum`, `List`, `Tuple(as List)`, `NamedTuple` to definition.
 ### Dump to dict
 
 ```python

@@ -1,4 +1,4 @@
-from typing import NamedTuple, List, Optional
+from typing import NamedTuple, List, Optional, Tuple
 from enum import Enum
 
 from zarame import load
@@ -53,6 +53,25 @@ def test_load_structured():
     assert converted.users[1].id == 2
     assert converted.users[1].email == 'hanako@example.com'
     assert converted.users[1].icon.url == 'https://example.com/profile/hanako/img.jpg'
+
+
+class IconTuple(NamedTuple):
+    icons: Tuple[Icon, ...]
+
+
+def test_load_structured_tuple():
+    icons = {
+        'icons': [
+            {'url': 'https://example.com/profile/taro/img.jpg'},
+            {'url': 'https://example.com/profile/hanako/img.jpg'},
+        ]
+    }
+
+    converted = load(icons, IconTuple)
+
+    assert isinstance(converted.icons, tuple)
+    assert converted.icons[0].url == 'https://example.com/profile/taro/img.jpg'
+    assert converted.icons[1].url == 'https://example.com/profile/hanako/img.jpg'
 
 
 def test_load_default_value():
