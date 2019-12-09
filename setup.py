@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='zarame',
-    version='0.0.2',
+    version='0.0.3',
     url='https://github.com/pistatium/zarame',
     author='pistatium',
     description='Simple structural transducer using NamedTuple',
@@ -18,6 +18,9 @@ setup(
         'test': [
             'pytest'
         ]
-    }
+    },
+    package_data={
+        "zarame": ["py.typed"],
+    },
 )
 
