@@ -7,6 +7,14 @@
 
 Simple structural converter using NamedTuple
 
+## Requirements
+* Python 3.6.1+
+
+## Install
+
+```
+pip install zarame
+```
 
 ## Usage
 
